@@ -43,7 +43,7 @@ let Code = 2;
 console.log(code);
 console.log(Code);
 
-/* 변수이름 작성
+/* 변수이름 작성 
    - 카멜 표기법
      let totalSalesCount = 10;
    - 파스칼 표기법
@@ -301,70 +301,228 @@ console.log(typeof varA);
 varA = "메뉴가 뭐지?";
 
 typeof varA === "string"
-    ? console.log("문자 자료형")
-    : console.log("문자형 자료형이 아님");
+  ? console.log("문자 자료형")
+  : console.log("문자형 자료형이 아님");
 
 //조건문
 num = 11;
 
 if (num === 10) {
-    console.log("조건 일치!");
-    console.log("num은 10 이상입니다.");
+  console.log("조건 일치!");
+  console.log("num은 10 이상입니다.");
 } else if (num > 10) {
-    console.log("조건 일치!");
-    console.log("num은 10 보다 큽니다.");
+  console.log("조건 일치!");
+  console.log("num은 10 보다 큽니다.");
 } else {
-    console.log("조건 불일치!");
-    console.log("num은 10 작습니다.");
+  console.log("조건 불일치!");
+  console.log("num은 10 작습니다.");
 }
 
 //switch 문
 let fruit = "apple";
 
 switch (fruit) {
-    case "apple": {
-        console.log("사과");
-        break;
-    }
-    case "banana": {
-        console.log("바나나");
-        break;
-    }
-    default: {
-        console.log("해당 과일이 아님.");
-    }
+  case "apple": {
+    console.log("사과");
+    break;
+  }
+  case "banana": {
+    console.log("바나나");
+    break;
+  }
+  default: {
+    console.log("해당 과일이 아님.");
+  }
 }
 
 //반복문
 for (let i = 1; i <= 10; i++) {
-    if (i > 5) {
-        console.log("반복문 종료");
-        break;
-    }
-    console.log(i);
+  if (i > 5) {
+    console.log("반복문 종료");
+    break;
+  }
+  console.log(i);
 }
 
 //함수
 function greeting() {
-    console.log("안녕하세요.");
+  console.log("안녕하세요.");
 }
 
 greeting();
 
 function getArea() {
-    let width = 10;
-    let height = 20;
+  let width = 10;
+  let height = 20;
 
-    let area = width * height;
+  let area = width * height;
 
-    console.log(area);
+  console.log(area);
 }
 
 getArea();
 
-function getArea(width, height) {
-    let area = width * height;
-    console.log(area);
+// 매개변수가 있는 함수
+function getArea2(width, height) {
+  let area = width * height;
+  console.log(area);
 }
 
-getArea(10, 20);
+getArea2(10, 20);
+
+// 결과를 반환하는 함수
+function getArea3(width, height) {
+  let area = width * height;
+  return area;
+}
+
+let result2 = getArea3(10, 20);
+
+console.log(result2);
+
+// 중첩 함수 : 함수 내에 또 다른 함수를 선언.
+function greeting2() {
+  function greetingWithName(name) {
+    //중첩 함수
+    console.log(`hello! ${name}`);
+  }
+
+  let name = "홍길동";
+  greetingWithName(name);
+}
+
+greeting2();
+
+/**
+ * 함수와 호이스팅(Hoisting)
+ *
+ * - 호이스팅이란.
+ * 함수 func에 대한 선언이 호출 코드보다 아래에 위치하지만,
+ * 마치 호출보다 먼저 함수를 선언한 것처럼 자연스럽게 동작하고 있음.
+ *
+ * 함수를 선언하기 전에도 호출할 수 있는 자바스크립트의 기능.
+ *
+ * - 준비 단계란.
+ * 자바스크립트는 코드를 실행하기 전에 준비 단계를 수행.
+ * 따라서, 준비 단계에서 중첩 함수가 아닌 것들은 모두 찾아서
+ * 미리 생성을 해두게 됨.
+ *
+ * - 장점.
+ * 코드 내에서 함수 선언의 위치를 강제하지 않기 때문에 더 유연한
+ * 프로그래밍이 가능함.
+ *
+ */
+console.log("-- 함수와 호이스팅 --");
+
+func(); // func 함수 호출
+
+function func() {
+  // func 함수의 선언부
+  console.log("hello");
+}
+
+/**
+ * 함수 표현식
+ *
+ * 함수를 생성하고 변수에 값으로 저장하는 방법.
+ *
+ * 함수 표현식으로 만든 함수는 호이스팅되지 않음.
+ */
+console.log("-- 함수 표현식 --");
+
+let greeting3 = function () {
+  console.log("hello");
+};
+
+greeting3();
+
+let greeting4 = greeting3; // () 가 없는 점에 주의.
+
+greeting4();
+
+// 함수 표현식으로 호이스팅 확인.
+funcA();
+//funcB(); //함수 표현식은 호이스팅을 지원하지 않음.
+
+function funcA() {
+  // 일반적인 함수
+  console.log("func A");
+}
+
+// let funcB = function () {
+//   // 함수 표현식으로 만든 함수
+//   console.log("func B");
+// };
+
+/**
+ * 콜백 함수(Callback Function)
+ *
+ * 함수를 다른 함수의 매개변수로 사용되어지는 경우.
+ */
+console.log("-- 콜백 함수 --");
+
+function parentFunc(callback) {
+  console.log("parent");
+  callback();
+}
+
+function childFunc() {
+  console.log("child");
+}
+
+parentFunc(childFunc);
+
+// 함수 표현식을 이용한 콜백함수
+console.log("-- 함수 표현식을 이용한 콜백함수 --");
+
+function repeat(count, callback) {
+  // callback 에 double 함수가 전달.
+  for (let idx = 0; idx < count; idx++) {
+    callback(idx + 1);
+  }
+}
+
+const double = function (count) {
+  console.log(count * 2);
+};
+
+repeat(5, double); //double 은 함수 표현식.
+
+// 화살표 표현식(화살표 함수) : 함수 표현식의 단축형
+
+// let funcA = (매개변수) => 반환값;
+
+// let funcA = function(매개변수) {
+//     return 반환값;
+// }
+console.log("-- 화살표 표현식 --");
+
+greeting4 = (name) => `hello ${name}`;
+
+greetingText = greeting4("홍길동");
+
+console.log(greetingText);
+
+greeting4 = (name) => {
+  let greetingText = `hello ${name}`;
+  return greetingText;
+};
+
+console.log(greeting4("홍길동2"));
+
+// 콜백함수 + 화살표 함수
+console.log("-- 콜백함수 + 화살표 함수 --");
+
+let isConfirm = true;
+
+// 콜백 메소드, 매개변수 두 개가 함수 표현식.
+function confirm(onYes, onNo) {
+  if (isConfirm) onYes();
+  else onNo();
+}
+
+// 콜백 메소드 호출
+confirm(
+  () => console.log("승인"),
+  () => console.log("거부")
+);

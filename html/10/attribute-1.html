@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+
+    <style>
+        ul {
+            list-style: none;
+        }
+        li {
+            width: 120px;
+            display: inline-block;
+            margin: 10px;
+        }
+        li a{
+            padding: 5px 20px;
+            font-size: 14px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* 속성 선택자
+            해당 어떤 요소의 속성을 확인해서 해당 속성이 있는 요소에 스타일을 적용
+
+            -> 태그 안의 속성을 확인해서 스타일 적용
+        */
+        /* a[href] {
+            background: yellowgreen;
+            border: 1px solid #ccc;
+            font-weight: normal;
+        } */
+
+        /* 특정 속성 값이 있는 요소를 선택 */
+        a[target="_blank"] {
+            padding-right: 30px;
+            background: url(image/newwindow.png) no-repeat center right;
+        }
+
+        /* 특정 속성 값이 포함된 요소를 선택 */
+        /* 속성 값이 us 이거나, us로 시작하는 요소를 선택 */
+        a[title |= "us"] {
+            background: url(image/us.png) no-repeat left center;
+        }
+        a[title |= "jap"] {
+            background: url(image/jp.png) no-repeat left center;
+        }
+        a[title |= "chn"] {
+            background: url(image/ch.png) no-repeat left center;
+        }
+
+     /*  특정 속성 값으로 끝나느 요소를 선택  */
+     /* 파일의 확장자가 hwp 이면 선택 */
+        a[href$=hwp] {  
+            background: url(image/hwp_icon.gif) center right no-repeat;
+        }  
+        /* 파일의 확장자가 xls 이면 선택 */
+        a[href$=xls] {  
+            background: url(image/excel_icon.gif) center right no-repeat;
+        }  
+
+        /* 일부 속성 값이 일치하는 요소를 선택  */
+        /* href 속성값 중에 w3가 있는 a 요소를 선택 */
+        a[href *= "w3"]{
+            background: blue;
+            color: white;
+        }
+        a[href *= "html"]{
+            background: green;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- 특정 속성 값이 있는 요소를 선택 -->
+    <ul>
+        <li><a>메인 메뉴</a></li>
+        <li><a href="#">메뉴1</a></li>
+        <li><a href="#">메뉴2</a></li>
+        <li><a href="#">메뉴3</a></li>
+        <li><a href="#">메뉴4</a></li>
+    </ul>    
+    <!-- 특정 속성 값이 있는 요소를 선택 -->
+     <ul>
+        <li><a href="#" target="_blank">HTML</a></li>
+        <li><a href="#">CSS</a></li>
+        <li><a href="#" target="_blank">JavaScript</a></li>
+     </ul>
+    <!-- 특정 속성 값이 포함된 요소를 선택 -->
+    <ul>
+        <li>외국어 서비스</li>
+        <li><a href="#" title="us-english">영어</a></li>
+        <li><a href="#" title="jap">일본어</a></li>
+        <li><a href="#" title="chn">중국어</a></li>
+     </ul>
+
+     <!-- 특정 속성 값으로 끝나는 요소를 선택 -->
+     <ul>
+        <li>회사 소개 파일 다운 받기</li>
+        <li><a href="intro.hwp" >hwp 파일</a></li>
+        <li><a href="intro.xls" >xls 파일</a></li>
+     </ul>
+
+     <!-- 일부 속성 값이 일치하는 요소를 선택 -->
+     <ul>
+        <li>HTML5 참고 사이트</li>
+        <li><a href="https://html.spec.whatwg.org/" >html 표준 참고 사이트</a></li>
+        <li><a href="https://www.w3.org/" >W3C</a></li>
+     </ul> 
+</body>
+</html>

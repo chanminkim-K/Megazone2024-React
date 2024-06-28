@@ -1,0 +1,33 @@
+*{
+    margin: 0 auto;
+    padding: 10px;
+}
+ul {
+    list-style: none;
+    width: 605px;
+}
+a {
+    width: 100px;
+    text-decoration: none;
+    color: black;
+    padding: 5px 30px;
+}
+li {
+    float: left;
+    padding: 5px 0px;
+    background-color: #ccc;
+    border-right: 1px solid gray;
+}
+
+li:last-child {
+    border-right: 0;
+}
+
+li :hover {
+    background: gray;
+    color: white;
+}
+
+li:nth-of-type(6) :hover {
+    background: red;
+}

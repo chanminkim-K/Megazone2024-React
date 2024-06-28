@@ -1,0 +1,66 @@
+<!-- float-2.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+   <meta charset="UTF-8">
+   <title>Document</title>
+  <style>
+
+    /*
+        body의 margin : 8. -> 브라우저의 기본 margin
+    */
+    /*
+    * {
+        margin: 0; /* 브라우저의 기본 margin을 0으로 초기ㅎ 
+    } */
+
+   div {
+    padding:20px;
+    margin: 10px;
+   }
+
+   #box1 {
+    /*  
+        위치 기준은? -> body 기준으로 왼쪽에서 부터 자리를 잡게 됨
+                     body의 margin이 중첨이 되지 않도로 위치함.
+        margin 은 왜 중첩이 안되는지?
+        margin 은 왜 중첩이 되는지?
+        floating  의 간격은?
+    */
+    background: yellowgreen;
+    float: left;
+   }
+
+   #box2 {
+    /*
+        box1을 기준으로 margin을 유지하면서, floating 
+    */
+    background: blueviolet;
+    float: left;
+
+   }
+
+   #box3 {
+    
+
+    background: greenyellow;
+    
+   }
+
+   #box4 {
+
+    /*
+        box2, box3 의 마진과 중첩이 되지 않도록 margin을 유지하면서, floating
+    */
+    background: skyblue;
+    float: left;
+   }
+  </style>
+</head>
+<body>
+   <div id="box1">박스1</div>
+   <div id="box2">박스2</div>
+   <div id="box3">박스3</div>
+   <div id="box4">박스4</div>
+</body>
+</html>

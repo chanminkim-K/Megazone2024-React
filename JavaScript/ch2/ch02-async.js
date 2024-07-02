@@ -177,166 +177,154 @@ function printLetter() {
   }, 1000);
 }
 
-// printLetter();
+//printLetter();
 
 // Promise 를 활용한 주문 프로그램을
 // 비동기 프로그램으로 구현
 
 // 성공, 실패 flag 정보
 // true : 성공, false : 실패
-// let orderPizza = true;
+// let orderPizza = false;
 
-// const pizzaOrder = new Promise(
-//     (resolve, reject) => {
-//         if(orderPizza)
-//             resolve("피자 주문 성공");
-//         else
-//             reject("피자 주문 실패");
-//     }
-// );
+// const pizzaOrder = new Promise((resolve, reject) => {
+//   if (orderPizza) resolve("피자 주문 성공");
+//   else reject("피자 주문 실패");
+// });
 
 // pizzaOrder
-//     .then((res) => console.log(res))
-//     .catch((err) => console.log(err))
-//     .finally(() => console.log("처리완료"));
+//   .then((res) => console.log(res))
+//   .catch((err) => console.log(err))
+//   .finally(() => console.log("처리 완료"));
 
 /**
  * 1. 커피 주문 프로그램 구현
- *      - promise 사용
- *      - 주문할 커피는 변수로 설정
- *      
- *      a. 주문 접수
- *          null 또는 공백 체크
- *          주문 접수 메세지 출력
+ *    - promise 사용
+ *    - 주문할 커피는 변수로 설정.
  * 
- *      b. 준비 완료
- *          3초가 걸림.
- *          resolve(전용 메소드로 구현)       
+ *    a. 주문 접수
+ *       null 또는 공백 체크
+ *       주문 접수 메세지 출력
+ *       
+ *    b. 준비 완료
+ *       3초가 걸림.
+ *       resolve(전용 메소드로 구현)
+ *       
+ *    c. 커피 주문 취소
+ *       reject(전용 메소드로 구현)
  * 
- *      c. 커피 주문 취소
- *         reject(전용 메소드로 구현)
+ coffeeOrder
+ .then(전용 메소드로 전달)
+ .catch(전용 메소드로 전달)
  * 
- * coffeeOrder
- * .then(전용 메소드로 전달)
- * .catch(전용 메소드로 전달)
- *  */
-
-
-/**
- * 2. 피자를 만드는 과정을 비동기로 처리
- *      피자 주문
- *      =========== 조리 ==========
- *      피자 도우 준비(2초) -> step 1
- *      토핑 완료(1초)     -> step 2
- *      굽기 완료(2초)     -> step 3
- *      ========= 조리 완료 ========
- *      피자 준비 완료
- * 
- *      then() 메소드의 체이닝으로 비동기 구현
- *      디자인 패턴의 빌더 패턴과 비슷한 형태
- * 
- * 
-pizzaOrder()
-    .then((result) => step1(result))
-    .then((result) => step2(result))
-    .then((result) => step3(result))
-    .then( () => console.log("피자 준비 완료"))
  */
 
+const coffeeOrder = new Promise((resolve, reject) => {
+  let coffee = "ICE 커피";
 
+  // null, 공백 체크 => 커피 주문 가능 여부 확인
+  if (coffee != null && coffee != "") {
+    console.log(`${coffee} 주문 접수`);
 
+    setTimeout(() => {
+      resolve(coffee);
+    }, 3000);
+  } else {
+    // 주문 접수 취소
+    reject("커피 주문 취소");
+  }
+});
 
-const coffeeOrder = new Promise(
-    (resolve, reject) => {
-        let orderCoffee = "아이스 아메리카노";
-
-        if(!orderCoffee || orderCoffee.trim() === "")
-            reject("주문할 커피를 입력해주세요.");
-        else{
-            console.log(`주문 접수: ${orderCoffee}`);
-
-            setTimeout(() => {
-                resolve(orderCoffee);
-            }, 3000);
-        }
-    }
-)
-
-// 전용 메소드 구현
+// 커피 준비 완료
 function orderSuccess(result) {
-    console.log(`${result} 준비 완료`);
-  }
-  
-function orderCancle(error) {
-   console.log(`주문 실패: ${error}`);
+  console.log(`${result} 준비 완료`);
 }
-  
-coffeeOrder
-    .then(orderSuccess)
-    .catch(orderCancle);
 
+// 주문 취소 및 실패
+function orderCancle(err) {
+  console.log(err);
+}
+
+// 커피 주문 promise와 orderSuccess(), orderCancle()
+// 서로 연결 작업
+coffeeOrder.then(orderSuccess).catch(orderCancle);
 
 /**
- * 2. 피자를 만드는 과정을 비동기로 처리
- *      피자 주문
- *      =========== 조리 ==========
- *      피자 도우 준비(2초) -> step 1
- *      토핑 완료(1초)     -> step 2
- *      굽기 완료(2초)     -> step 3
- *      ========= 조리 완료 ========
- *      피자 준비 완료
+ * 2.  피자를 만드는 과정을 비동기로 처리
+ *    피자 주문
+ *    ========== 조리 ==========
+ *    피자 도우 준비(2초) -> step 1
+ *    토핑 완료(1초)      -> step 2
+ *    굽기 완료(2초)      -> step 3
+ *    =========== 조리 완료 ====
+ *    피자 준비 완료
  * 
- *      then() 메소드의 체이닝으로 비동기 구현
- *      디자인 패턴의 빌더 패턴과 비슷한 형태
+ *    then() 메소드 체이닝으로 비동기 구현.
+ *    디자인 패턴의 빌더 패턴과 비슷한 형태.
  * 
+ pizzaOrder()
+  .then( (result) => step1(result) )
+  .then( (result) => step2(result) )
+  .then( (result) => step3(result) )
+  .then(() => {
+    console.log("피자 준비 완료");
+  });
+
+  step1, step2, step3 는 반드시 promise 객체를 반환해야만,
+  then 메소드 체이닝이 가능해짐.
  * 
-pizzaOrder()
-    .then((result) => step1(result))
-    .then((result) => step2(result))
-    .then((result) => step3(result))
-    .then( () => console.log("피자 준비 완료"))
  */
-/*
-let orderPizza = "베이컨 포테이토 피자";
 
-const pizzaOrder = new Promise(
-    (resolve, reject) => {
-        if(!orderPizza || orderPizza.trim() === "")
-            reject("주문할 커피를 입력해주세요.");
-        else{
-            console.log(`주문 접수: ${orderPizza}`);
-            resolve()
-        }
-    }
-);
+//1. 시작 promise 구현.
+const pizza = () => {
+  return new Promise((resolve, reject) => {
+    resolve("피자 주문 시작");
+  });
+};
 
-function step1() {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve("피자 도우 준비 완료");
-      }, 2000);
-    });
-  }
+//2. 각 조리단계별로 메소드 구현. step1 ~ step3 의 이름으로 정의.
+//      각 조리별 메소드는 반드시 promise 객체를 반환해야 함.
+// step1, 피자 도우 준비, 2초, promise 객체 반환
+const step1 = (msg) => {
+  console.log(msg);
 
-function step2() {
-    return new Promise((resolve) => {
+  // promise 객체 생성 및 반환
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
-        resolve("토핑 완료");
-      }, 1000);
-    });
-}
+      resolve("피자 도우 준비");
+    }, 2000);
+  });
+};
 
-function step3(){
-    return new Promise((resolve) => {
+// step2, 토핑 완료, 1초, promise 객체 반환
+const step2 = (msg) => {
+  console.log(msg);
+
+  // promise 객체 생성 및 반환
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
-        resolve("굽기 완료");
-      }, 2000);
-    });
-}
+      resolve("토핑 완료");
+    }, 1000);
+  });
+};
 
-pizzaOrder
-    .then((result) => step1(result))
-    .then((result) => step2(result))
-    .then((result) => step3(result))
-    .then( () => console.log("피자 준비 완료"))
-*/
+// step3, 굽기 완료, 2초, promise 객체 반환
+const step3 = (msg) => {
+  console.log(msg);
+
+  // promise 객체 생성 및 반환
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve("굽기 완료");
+    }, 2000);
+  });
+};
+
+//3. 시작 promise 와 각 조리단계별 메소드를 .then() 메소드로 연결.
+pizza()
+  .then((result) => step1(result))
+  .then((result) => step2(result))
+  .then((result) => step3(result))
+  .then((result) => console.log(result))
+  .then(() => {
+    console.log("피자 준비 완료");
+  });

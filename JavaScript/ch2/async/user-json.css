@@ -1,0 +1,19 @@
+table {
+    display: inline-block;
+    width: 300px;
+    margin: 10px;
+  }
+  table,
+  td,
+  th {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  th {
+    width: 80px;
+  }
+  td {
+    border: 1px solid black;
+    width: 210px;
+    padding: 10px 20px;
+  }

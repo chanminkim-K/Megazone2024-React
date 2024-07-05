@@ -5,25 +5,28 @@ import Footer from "./component/Footer"
 import Button from './component/button';
 import Body from './component/Body'
 
-// function App() {
+function App() {
 
-//   const buttonProps = {
-//     text: "기타",
-//     color: "red",
-//     a: 1, 
-//     b: 2,
-//     c: 3
-//   }
+  const buttonProps = {
+    text: "기타",
+    color: "red",
+    a: 1, 
+    b: 2,
+    c: 3
+  }
 
-//   return (
-//     <>
-//       <Button text={"메일"} color={"red"}/>
-//       <Button text={"카페"}/>
-//       <Button text={"블로그"}/>
-//       <Button {...buttonProps}/>
-//     </>
-//   );
-// }
+  return (
+    <>
+      <Button text={"메일"} color={"red"} />
+      <Button text={"카페"} />
+      <Button text={"블로그"}>
+        <div>자식요소</div>
+        <Header />
+      </Button>
+      <Button {...buttonProps} />
+    </>
+  );
+}
 
 // function App() {
 
@@ -37,6 +40,7 @@ import Body from './component/Body'
 // }
 
 // 교재 209~ Props 예제
+/*
 function ChildComp() {
   return <div>child component</div>;
 }
@@ -52,4 +56,5 @@ function App() {
     </div>
   )
 }
+*/
 export default App;

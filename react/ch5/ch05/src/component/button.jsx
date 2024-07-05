@@ -27,9 +27,21 @@
 // 객체 구조 분해 할당을 사용한 처리
 // 객체의 프로퍼티 명과 동일하게 매개변수로 정의
 const Button = ( {text, color = "green", children} ) => {
-    return <button style={{color: color}}>
+
+    const onCilckButton = () => {
+
+    }
+
+    return (
+        <button
+        onClick={ () => {
+            console.log(text);
+        }} 
+        style={{color: color}}>
         {text} - {color.toUpperCase()}
+        {children}
         </button>
+    )
 }
 
 // Button.defaultProps = {

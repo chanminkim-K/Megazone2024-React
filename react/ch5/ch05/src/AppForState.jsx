@@ -71,8 +71,9 @@ function AppForState() {
    */
   return (
       <>
-        <Blud />
+        
         <Count />
+        
       </>
   );
 }

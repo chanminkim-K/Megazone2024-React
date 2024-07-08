@@ -61,12 +61,17 @@ function App() {
       )
     );
   };
+
+  // 5. 아이템 삭제 함수 만들기
+  const onDelete = (targetId) => {
+    setTodo(todo.filter( (it) => it.id !== targetId));
+  }
   
   return (
     <div className='App'>
       <Header />
       <ToDoEditor onCreate={onCreate}/>
-      <ToDoList todo={todo} onUpdate={onUpdate}/>
+      <ToDoList todo={todo} onUpdate={onUpdate} onDelete={onDelete}/>
     </div>
   )
 }

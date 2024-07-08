@@ -47,7 +47,7 @@ function App() {
       id: idRef.current,
       content,
       isDone: false,
-      createdDate: new Date().getDate(),
+      createdDate: new Date().getTime(),
     };
     setTodo([newItem, ...todo]);
     idRef.current += 1;
@@ -59,7 +59,7 @@ function App() {
     <div className='App'>
       <Header />
       <ToDoEditor onCreate={onCreate}/>
-      <ToDoList />
+      <ToDoList todo={todo}/>
     </div>
   )
 }

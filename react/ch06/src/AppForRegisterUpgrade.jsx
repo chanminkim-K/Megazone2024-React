@@ -1,12 +1,13 @@
 import "./App.css";
-import RegisterUpgrade from "../components/RegisterUpgrade";
+import RegisterUpgradeUseRef from "./components/RegisterUpgradeUseRef";
 
-function AppForStateResultUpgrade() {
+function AppForRegisterUpgradeUseRef() {
   return (
     <>
-      <RegisterUpgrade />
+      <RegisterUpgradeUseRef />
+      <RegisterUpgradeUseRef />
     </>
   );
 }
 
-export default AppForStateResultUpgrade;
+export default AppForRegisterUpgradeUseRef;

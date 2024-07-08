@@ -53,19 +53,23 @@ function App() {
     idRef.current += 1;
   }
 
- 
-
+  // 4. 아이템 수정 함수 만들기
+  const onUpdate = (targetId) => {
+    setTodo(
+      todo.map( (it) =>
+        it.id === targetId ? {...it, isDone: !it.isDone} : it
+      )
+    );
+  };
+  
   return (
     <div className='App'>
       <Header />
       <ToDoEditor onCreate={onCreate}/>
-      <ToDoList todo={todo}/>
+      <ToDoList todo={todo} onUpdate={onUpdate}/>
     </div>
   )
 }
-
-
-
 
 export default App
 /** 

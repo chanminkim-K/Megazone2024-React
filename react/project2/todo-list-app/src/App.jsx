@@ -5,6 +5,7 @@ import ToDoEditor from '../components/ToDoEditor'
 import ToDoList from '../components/ToDoList'
 import TestComp from '../components/TestComp';
 import { act } from 'react';
+import { useCallback } from 'react';
 
 
 
@@ -85,20 +86,20 @@ function App() {
   }
 
   // 4. 아이템 수정 함수 만들기
-  const onUpdate = (targetId) => {
+  const onUpdate = useCallback((targetId) => {
     dispatch({
       type: "UPDATE",
       targetId,
     });
-  };
+  },[]);
 
   // 5. 아이템 삭제 함수 만들기
-  const onDelete = (targetId) => {
+  const onDelete = useCallback((targetId) => {
     dispatch({
       type: "DELETE",
       targetId,
     });
-  };
+  },[]);
   
   return (
     <div className='App'>

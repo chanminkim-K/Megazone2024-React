@@ -1,3 +1,7 @@
+// useState 라는 hook을 import
+import { useState } from "react";
+import useInput from "../hooks/useInput";
+
 /***
  *
  * - 2017 년도 이전의 React.js
@@ -39,3 +43,117 @@
  *   b. custom hook 구현이 가능
  *
  */
+
+/**
+ * hook 관련된 3가지 사항
+ * 
+ * 1. hook 은 반드시 함수 컴포넌트 이거나 custom hook 내부에서만 호출 가능
+ * 
+ * 2. 조건부에서 사용될 수 없다. 조건문이나 반복문 내부에서 호출할 수 없음 => 오류 발생
+ * 
+ * 3. custom hook 을 직접 만들어서 사용 가능
+ *    작성 방법은 함수 작성시 함수명 앞에 접두어 use 를 붙이면 됨
+ * 
+ *    좋은 활용 법
+ *    custom hook 을 통해 컴포넌트 내부에서 반복되는 부분을
+ *    hook을 통해 반복 사용할 수 있도록 분리할 수 있음
+ * 
+ *    그리고, custom hook은 별도의 디렉토리에 hooks 이름의
+ *    폴더를 만들어서 관리하는 것이 일반적임
+ */
+
+/* ===== 1.hook 은 반드시 함수 컴포넌트 이거나 custom hook 내부에서만 호출 가능 ==== */ 
+
+// react hook을 함수 펌포넌트 외부에서 소출하면 즉시 오류 발생함
+// 브라우저에서도 오류가 발생
+// const state = useState();
+
+// input tag의 상태값을 관리하는 함수
+// hook 은 javascript 함수에서 호출해서 사용할 수 없음
+// function getInput() {
+//     // 새로운 상태관리변수 생성
+//     const [input, setInput] = useState("");
+
+//     // 이벤트 핸들러
+//     const onChange = (e) => {
+//         // 상태변경함수 호출
+//         setInput(e.target.value);
+//     };
+
+//     return [input, onChange];
+// }
+
+/* ===== 3. custom hook 함수 ===== */
+// 중요한 것은 함수명 앞에 접두어로 "use" 를 기입.
+// function useInput() {
+//     // 새로운 상태관리변수 생성
+//     const [input, setInput] = useState("");
+
+//     // 이벤트 핸들러
+//     const onChange = (e) => {
+//         // 상태변경함수 호출
+//         setInput(e.target.value);
+//     };
+
+//     return [input, onChange];
+// }
+
+// 컴포넌트 함수
+const HookExam = () => {
+    // 1. 컴포넌트 함수 내부에서 hook을 호출하면 사용 가능
+    const state = useState();
+
+    // 2. 조건부에서 사용될 수 없다.
+    let booleanflag = true;
+    if(booleanflag) {
+        let a = 0;
+        // 조건문 안에 hook을 호출
+        // const state2 = useState();
+    }
+
+    for(let i = 0; i < 10; i++){
+        let a = 0;
+        // 반복문 안에서 hook을 호출
+        // const state3 = useState();
+    }
+
+    // 3.
+    /**
+     * input tag 에 입력되는 값을 관리
+     * 
+     * - 새로운 상태관리 변수(state)를 생성. 변수명 : input
+     * - event handler 를 작성해서, 상태변경함수(setInput)를 호출
+     * - 변경되는 값을 state 변수에 저장해서 관리
+     * 
+     * 하지만, 여러 개의 input tag를 반복해서 사용하는 경우라면...
+     * 
+     * state 변수도 그만큼 늘어나게 되어, 관리애햐 할 코드가 중가하게 됨.
+     * => 공통 기능이고 자주 사용된다면, 함수로 만들어서 사용
+     */
+
+    // 새로운 상태관리변수 생성
+    const [input, setInput] = useState("");
+
+    // 이벤트 핸들러
+    const onChange = (e) => {
+        // 상태변경함수 호출
+        setInput(e.target.value);
+    }
+    
+    // getInput() 호출, 구조분해할당으로 초기화
+    const [input2, onChange2] = useInput();
+
+    const [input3, onChange3] = useInput();
+    
+    return (
+        <div>
+            <div>HookExam</div>
+            <div>
+                <input value={input} onChange={onChange} type="text" />
+                <input value={input2} onChange={onChange2} type="text" />
+                <input value={input3} onChange={onChange3} type="text" />
+            </div>
+        </div>
+    )
+};
+export default HookExam;

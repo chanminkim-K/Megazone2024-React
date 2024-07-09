@@ -1,7 +1,11 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
+import { ToDoDispatchContext } from "../src/App";
+
 import "./ToDoEditor.css"
 
-const ToDoEditor = ({ onCreate }) => { // Props 객체 구조 분해 할당
+const ToDoEditor = () => { // Props 객체 구조 분해 할당
+    const {onCreate} = useContext(ToDoDispatchContext);
+
     const [content, setContent] = useState("");
     const inputRef = useRef(); // 할 일 입력 폼을 제어할 inpuRef 객체 생성
     const onChangeContent = (e) => {

@@ -1,14 +1,12 @@
 import './App.css'
-import { useReducer, useRef } from "react";
+import React, { useMemo, useCallback, useReducer, useRef } from "react";
 import Header from '../components/Header'
 import ToDoEditor from '../components/ToDoEditor'
 import ToDoList from '../components/ToDoList'
 import TestComp from '../components/TestComp';
-import { act } from 'react';
-import { useCallback } from 'react';
 
-
-
+export const ToDoStateContext = React.createContext();
+export const ToDoDispatchContext = React.createContext();
 /**
  * 목 데이터 설정하기
  *  - 목 데이터 : 모조품 데이터 = 테스트를 목적으로 사용하는 데이터
@@ -58,6 +56,8 @@ function reducer(state, action){
       return state;
   }
 }
+// context는 반드시 컴포넌트 밖에서 생성해야 한다.
+
 
 function App() {
   // 1. 할 일 아이템의 상태 관리
@@ -101,16 +101,24 @@ function App() {
     });
   },[]);
   
+  const memoizedDispatches = useMemo( () => {
+    return { onCreate, onUpdate, onDelete };
+  }, []);
+
   return (
     <div className='App'>
       {/* <TestComp /> */}
       <Header />
-      <ToDoEditor onCreate={onCreate}/>
-      <ToDoList todo={todo} onUpdate={onUpdate} onDelete={onDelete}/>
+      <ToDoStateContext.Provider value={ todo }>
+        <ToDoDispatchContext.Provider value={memoizedDispatches}>
+          <ToDoEditor />
+          <ToDoList />
+        </ToDoDispatchContext.Provider>
+      </ToDoStateContext.Provider>
     </div>
   )
 }
-
+export const ToDoContext = React.createContext();
 export default App
 /** 
  * 컴포넌트 별 구현해야 할 기능

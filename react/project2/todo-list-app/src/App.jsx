@@ -3,6 +3,7 @@ import { useState, useRef } from "react";
 import Header from '../components/Header'
 import ToDoEditor from '../components/ToDoEditor'
 import ToDoList from '../components/ToDoList'
+import TestComp from '../components/TestComp';
 
 /**
  * 목 데이터 설정하기
@@ -69,6 +70,7 @@ function App() {
   
   return (
     <div className='App'>
+      <TestComp />
       <Header />
       <ToDoEditor onCreate={onCreate}/>
       <ToDoList todo={todo} onUpdate={onUpdate} onDelete={onDelete}/>

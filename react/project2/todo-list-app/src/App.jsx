@@ -1,9 +1,12 @@
 import './App.css'
-import { useState, useRef } from "react";
+import { useReducer, useRef } from "react";
 import Header from '../components/Header'
 import ToDoEditor from '../components/ToDoEditor'
 import ToDoList from '../components/ToDoList'
 import TestComp from '../components/TestComp';
+import { act } from 'react';
+
+
 
 /**
  * 목 데이터 설정하기
@@ -30,6 +33,31 @@ const mockTodo = [
   },
 ];
 
+// reducer 함수
+function reducer(state, action){
+  // 상태 변화 코드
+  switch (action.type){
+    case "CREATE":{
+      return [action.newItem, ...state];
+    }
+    case "UPDATE":{
+      return state.map((it) =>
+        it.id === action.targetId
+          ? {
+            ...it,
+            isDone: !it.isDone,
+          }
+          : it
+        );
+    }
+    case "DELETE":{
+      return state.filter((it) => it.id !== action.targetId);
+    }
+    default:
+      return state;
+  }
+}
+
 function App() {
   // 1. 할 일 아이템의 상태 관리
   //    State 변수 todo의 기본값을 빈 배열로 초기화
@@ -37,40 +65,44 @@ function App() {
 
   // 2. 목 데이터 설정
   //    State 변수 todo의 기본값으로 목 데이터 전달
-  const [todo, setTodo] = useState(mockTodo); 
+  const [todo, dispatch] = useReducer(reducer, mockTodo); 
 
   // 3. 아이템 추가 함수 만들기
   //    <추가> 버튼 클릭시 App에 할 일 데이터 전달하고 추가 이벤트 발생했음을 알려야 함
   const idRef = useRef(3);
 
   const onCreate = (content) => {
-    const newItem =  {
-      id: idRef.current,
-      content,
-      isDone: false,
-      createdDate: new Date().getTime(),
-    };
-    setTodo([newItem, ...todo]);
+    dispatch({
+      type: "CREATE",
+      newItem: {
+        id: idRef.current,
+        content,
+        isDone: false,
+        createdDate: new Date().getTime(),
+      }
+    });
     idRef.current += 1;
   }
 
   // 4. 아이템 수정 함수 만들기
   const onUpdate = (targetId) => {
-    setTodo(
-      todo.map( (it) =>
-        it.id === targetId ? {...it, isDone: !it.isDone} : it
-      )
-    );
+    dispatch({
+      type: "UPDATE",
+      targetId,
+    });
   };
 
   // 5. 아이템 삭제 함수 만들기
   const onDelete = (targetId) => {
-    setTodo(todo.filter( (it) => it.id !== targetId));
-  }
+    dispatch({
+      type: "DELETE",
+      targetId,
+    });
+  };
   
   return (
     <div className='App'>
-      <TestComp />
+      {/* <TestComp /> */}
       <Header />
       <ToDoEditor onCreate={onCreate}/>
       <ToDoList todo={todo} onUpdate={onUpdate} onDelete={onDelete}/>
